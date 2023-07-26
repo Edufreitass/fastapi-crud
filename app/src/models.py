@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 
-from app.src import Base
+from app.src.database import Base
 
 
 class Curso(Base):
