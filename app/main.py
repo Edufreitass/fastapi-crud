@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, status
+from fastapi import FastAPI, Depends, status, HTTPException
 from sqlalchemy.orm import Session
 
 from app.src.database import Base, engine, get_db
@@ -24,3 +24,14 @@ def create(request: CursoRequest, db: Session = Depends(get_db)):
 def find_all(db: Session = Depends(get_db)):
     cursos = CursoRepository.find_all(db)
     return [CursoResponse.model_validate(curso) for curso in cursos]
+
+
+@app.get("/api/cursos/{id}", response_model=CursoResponse)
+def find_by_id(id: int, db: Session = Depends(get_db)):
+    curso = CursoRepository.find_by_id(db, id)
+    if not curso:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Curso não encontrado"
+        )
+    return CursoResponse.model_validate(curso)
