@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, status, HTTPException
+from fastapi import FastAPI, Depends, status, HTTPException, Response
 from sqlalchemy.orm import Session
 
 from app.src.database import Base, engine, get_db
@@ -35,3 +35,14 @@ def find_by_id(id: int, db: Session = Depends(get_db)):
             detail="Curso não encontrado"
         )
     return CursoResponse.model_validate(curso)
+
+
+@app.delete("/api/cursos/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_by_id(id: int, db: Session = Depends(get_db)):
+    if not CursoRepository.exists_by_id(db, id):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Curso não encontrado"
+        )
+    CursoRepository.delete_by_id(db, id)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
