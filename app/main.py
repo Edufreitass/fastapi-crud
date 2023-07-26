@@ -18,3 +18,9 @@ def create(request: CursoRequest, db: Session = Depends(get_db)):
     curso = CursoRepository.save(
         db, Curso(**request.model_dump()))
     return CursoResponse.model_validate(curso)
+
+
+if __name__ == '__main__':
+    import uvicorn
+
+    uvicorn.run('app.main:app', reload=True)
