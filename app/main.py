@@ -20,6 +20,12 @@ def create(request: CursoRequest, db: Session = Depends(get_db)):
     return CursoResponse.model_validate(curso)
 
 
+@app.get("/api/cursos", response_model=list[CursoResponse])
+def find_all(db: Session = Depends(get_db)):
+    cursos = CursoRepository.find_all(db)
+    return [CursoResponse.model_validate(curso) for curso in cursos]
+
+
 if __name__ == '__main__':
     import uvicorn
 
