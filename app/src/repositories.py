@@ -13,6 +13,8 @@ class CursoRepository:
     def save(db: Session, curso: Curso) -> Curso:
         if curso.id:
             db.merge(curso)
+            db.commit()
+            return curso
         else:
             db.add(curso)
             db.commit()
