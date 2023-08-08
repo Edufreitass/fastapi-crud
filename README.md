@@ -34,3 +34,16 @@ Após a execução do comando acima teremos feito a instalação das seguintes b
     SQLAlchemy: ORM bastante popular dentro do ecossistema Python.
 
 Agora nós já estamos com o nosso ambiente preparado e podemos dar prosseguimento com o desenvolvimento de nossa API.
+
+## Para executar o projeto
+
+```bash
+$ (venv) PS D:\workspace\fastapi-crud> uvicorn app.main:app --reload
+
+INFO:     Will watch for changes in these directories: ['D:\\workspace\\fastapi-crud']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [26692] using WatchFiles
+INFO:     Started server process [30120]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+```
